@@ -10,13 +10,13 @@ class Vehicle{
         this.model = "model";
         this.manafacture = new Date(2005,1,1);
     }
-    get Dimension(){
+    get dimension(){
         return this.dimensions.height;    
     }
-    get Age(){
+    get age(){
         return (Date.now() - this.manafacture) / (1000 * 60 * 60 *24);
     }
-    get FullInfo(){
+    get fullInfo(){
         return String(this.brand +" "+ this.model +" "+ this.manafacture.getFullYear());
     }
 }
@@ -35,16 +35,32 @@ class PassengerTransport extends Vehicle{
         else
             return false;
     }
-    get FullInfo(){
-        return String(this.brand +" "+ this.model +" "+ this.manafacture.getFullYear() + " " + this.passengerLimit);
+    get fullInfo(){
+        return String(super.fullInfo + " " + this.passengerLimit);
     }
 
 }
+class FreightTransport extends Vehicle{
+    constructor(){
+        super();
+        this.capacity = 200;
+    }
+    checkLoadingPossibility(weight){
+        if(weight < this.capacity)
+            return true
+        return false;
+    }
+    get fullInfo(){
+        return (super.fullInfo+ " " + this.capacity);
+    }
 
+}
 let Veh = new Vehicle;
 let Pas = new PassengerTransport;
-console.log(Veh.Dimension);
-console.log("date in days: ", Veh.Age);
-console.log(Veh.FullInfo);
+let Fre = new FreightTransport;
+console.log(Veh.dimension);
+console.log("date in days: ", Veh.age);
+console.log(Veh.fullInfo);
 Pas.addPassenger();
-console.log(Pas.FullInfo);
+console.log(Pas.fullInfo);
+console.log(Fre.fullInfo);
